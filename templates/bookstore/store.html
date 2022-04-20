@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{#타이틀 넣는 곳#}
+{% block title %}
+    {{owner.username}}의 스토어
+{% endblock %}
+
+{# css 파일 넣는 곳#}
+{% block css %}
+    <link rel="stylesheet" href="{% static '/css/store.css' %}">
+{% endblock %}
+
+{#자바스크립트 파일 넣는 곳#}
+{% block js %}
+    <script type="text/javascript" src="{% static '/js/store.js' %}"></script>
+{% endblock %}
+
+{#메인 컨텐츠 들어가는 곳#}
+{% block content %}
+<!-- 스토어배경이미지 -->
+<img class="bg_img" src="{{store.store_img}}">
+<p id="store_name">{{store.user.username}}님의 책방</p>
+<div id="store_info">{{ store.store_info }}</div>
+
+<!-- owner id : {{store.user.pk}}{{ user }}
+owner-username : {{store.user.username}}
+bookstore_id : {{ store.id }} -->
+
+
+<!-- 보유도서목록 -->
+<!-- <div id="books_wrap">
+{% for book in books%}
+    <div class="sales_book">
+        <img src="{{ book.book_img}}" onclick="location.href = '{% url 'detail' book.pk %}'">
+        <div>
+            <p>{{ book.book_name}}</p>
+            {% if book.is_rent == True%}
+                <p>대여가능</p>
+            {% else %}
+                <p>대여중</p>
+            {% endif %} 
+        </div>
+    </div>
+{% endfor %}
+</div> -->
+
+
+    <div id="uploaed_book_wrap">
+            {% for book in books %}
+                <div id="uploaed_book">
+                    <img src="{{book.book_img}}" onclick="location.href = '{% url 'detail' book.pk %}'">
+                    {% if book.is_rented == 0%}
+                        <div id="onsale">대여가능</div>
+                    {% else %}
+                        <div id="rented">대여중</div>
+                    {% endif %}
+                    <p>{{book.book_name}}</p>    
+                </div>    
+            {% endfor %}
+    </div>
+
+ 
+ 
+
+    
+{% endblock %}

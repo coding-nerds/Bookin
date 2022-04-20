@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+채팅 방
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block js %}
+<script src={% static 'js/socket.js' %}></script>
+<script src={% static 'js/chat.js' %}></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        scrollDown()
+    });
+
+    const me = "{{ user.username }}"
+    const me_image = '{{ user.user_image }}'
+    const roomId = '{{ room.id }}'
+    const url = '{{ request.path }}'
+
+    socket.on("sendMessage", async({ message, user, userCount }) => {
+        let html = '';
+        let data = new FormData()
+        data.append('chat_room_id',roomId)
+        if (me != user.talker){
+            data.append('user', me)
+            if (userCount>1){
+                await axios({
+                    method:'POST',
+                    url:url,
+                    data:data,
+                    headers: {
+                        "X-CSRFToken": '{{csrf_token}}', 
+                    }
+                })
+            }
+            html = `<div class="mb-6 flex">
+                        <img class="w-14 h-14 rounded-full" src="${user.talker_image}" alt="">
+                        <div class="mt-px p-5 max-w-[270px] break-all mx-3 rounded bg-gray-200">
+                            ${message}
+                        </div>
+                        <span class="flex items-end font-light text-sm">${user.time}</span>
+                    </div>`;
+        }else{
+            data.append('user', user.talker)
+            if (userCount>1){
+                await axios({
+                    method:'POST',
+                    url:url,
+                    data:data,
+                    headers: {
+                        "X-CSRFToken": '{{csrf_token}}', 
+                    }
+                })
+            }
+            html = `<div class="mb-6 flex justify-end self-end text-right">
+                        <span class="flex items-end font-light text-sm">${user.time}</span>
+                        <div class="mt-px p-5 max-w-[270px] break-all mx-3 rounded bg-gray-200">
+                            ${message}
+                        </div>
+                    </div>`;
+        }
+        if (messageBox.innerHTML.trim() == "메세지가 없습니다") {
+          messageBox.innerHTML = html;
+        } else {
+          messageBox.innerHTML += html;
+        }
+        toRecentMessage()
+      });
+    
+    socket.emit('join', roomId)
+    form.addEventListener('submit', async(event)=> {
+        event.preventDefault();
+        
+        let data = new FormData()
+        data.append('message',input.value)
+        data.append('chat_room_id',roomId)
+
+        await axios({
+            method:'POST',
+            url:url,
+            data:data,
+            headers: {
+                "X-CSRFToken": '{{csrf_token}}', 
+            }
+        }).then(res => {
+            socket.emit('sendMessage',{'message':input.value,'roomId':roomId,'user':{"talker":me,"talker_image":me_image,"time":res.data}})
+            input.value = "";
+        })
+        .catch(errors => console.log(errors)) 
+    })
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="w-full h-[80vh] mt-20 flex justify-center overflow-y-hidden">
+    <div class="container h-5/6">
+        <div id="messageBox" class="overflow-y-rev overflow-x-hidden h-full w-full">
+            {% if room.messages.count == 0 %}
+                메세지가 없습니다
+            {% else %}
+            {% for message in room.messages %}
+            {% if message.user.username == user.username %}
+            <div class="mb-6 flex justify-end self-end text-right">
+                <span class="flex items-end font-light text-sm">{{message.created_at|time:"A h:i"}}</span>
+                <div class="mt-px p-5 max-w-[270px] break-all mx-3 rounded bg-gray-200">
+                    {{message.message}}
+                </div>
+            </div>
+            {% else %}
+            <div class="mb-6 flex">
+                <div class="flex items-center">
+                    <img class="w-14 h-14 rounded-full" src="{{ message.user.user_image }}" alt="">
+                </div>
+                <div class="mt-px p-5 max-w-[270px] break-all mx-3 rounded bg-gray-200">
+                    {{message.message}}
+                </div>
+                <span class="flex items-end font-light text-sm">{{message.created_at|time:"A h:i"}}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="w-full pt-5">
+            <form id="form" name="form">
+                <div class="w-full flex">
+                    <textarea type="text" id="input" onKeyPress="sendPress(event)" oninput="messageInputChange(this)" class="w-full p-2 border-2 rounded ml-3" placeholder="메시지를 입력하세요" style="resize:none" required></textarea>
+                    <button id="sendBtn" type="submit" class="p-2 w-20 mr-3 cursor-pointer rounded bg-blue-900 text-white disabled:bg-white disabled:text-gray-500 disabled:border-2 disabled:cursor-not-allowed" disabled>전송</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

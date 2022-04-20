@@ -1,0 +1,29 @@
+{
+  "name": "bookin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx tailwindcss -i assets/css/styles.css -o assets/css/bookin_style.css --watch",
+    "css": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youkzo/bookin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youkzo/bookin/issues"
+  },
+  "homepage": "https://github.com/youkzo/bookin#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sass": "^5.1.0",
+    "node-sass": "^7.0.1",
+    "tailwindcss": "^3.0.23"
+  }
+}

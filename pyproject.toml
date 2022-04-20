@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "bookin"
+version = "0.1.0"
+description = ""
+authors = ["youkzo <youkzo@bookin.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^4.0.3"
+django-environ = "^0.8.1"
+boto3 = "^1.21.21"
+psycopg2-binary = "^2.9.3"
+
+[tool.poetry.dev-dependencies]
+isort = "^5.10.1"
+autopep8 = "^1.6.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
