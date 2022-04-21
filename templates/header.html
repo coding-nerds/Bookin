@@ -1,0 +1,22 @@
+<nav>
+    <div>
+      <a href="/">bookin</a>
+    </div>
+    <div>
+      <form method="get" action="{% url 'search-all' %}">
+        <input  type="text" name="word" class="p-3" placeholder="search...">
+      </form>
+    </div>
+    {% if not user.is_authenticated %}
+      <div >
+        <a href="/sign-in">sign in</a>
+      </div>
+      <div>
+        <a href="/sign-up">sign up</a>
+      </div>
+      {% else%}
+      <div>
+        <a href="/logout">log out</a>
+      </div>
+    {% endif %}
+  </nav>

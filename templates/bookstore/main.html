@@ -10,36 +10,16 @@
 {# css 파일 넣는 곳#}
 {% block css %}
     <link rel="stylesheet" href="{% static '/css/main.css' %}">
-    <!-- 메인슬릭 -->
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 {% endblock %}
 
 {#자바스크립트 파일 넣는 곳#}
 {% block js %}
 
-    <!-- 메인슬릭 -->
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script type="text/javascript">
-        $('.main_top').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            infinite: true,
-            autoplay: true,
-            autoplaySpeed: 3000,
-          });
-    </script>
 {% endblock %}
 
 {#메인 컨텐츠 들어가는 곳#}
 {% block content %}
 
-
-    <div class="main_top">
-            <img  src="{% static '/img/main4.jpg' %}">
-            <img  src="{% static '/img/main3.jpg' %}">         
-     
-    </div>
 
 내지역: {{user.location}}
 <!-- 서점: {{ stores }}

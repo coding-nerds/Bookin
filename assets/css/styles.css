@@ -14,6 +14,9 @@
   .profile-nav-btn {
     @apply w-full flex justify-center py-2 border-b-2 cursor-pointer transition duration-300 ease-in-out active:border-blue-900;
   }
+  .footerIcon{
+    @apply w-12 cursor-pointer flex flex-col justify-center items-center
+  }
 }
 
 @tailwind utilities;
