@@ -22,12 +22,15 @@
   </head>
 
   <body>
-    {% include 'header.html' %}
-
-    <div id="content_wrap">
-      {% block content %}{% endblock %}
+    <div>
+      {% include 'header.html' %}
+      <div class="pb-20">
+        {% block content %}{% endblock %}
+      </div>
+      <div class="w-full flex flex-col justify-center items-center">
+      {% include 'footerMenu.html' %}
+      </div>
     </div>
-    {% include 'footerMenu.html' %}
     {% block js %}{% endblock %}
   </body>
 
