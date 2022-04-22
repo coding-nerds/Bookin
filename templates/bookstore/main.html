@@ -4,79 +4,63 @@
 
 {#타이틀 넣는 곳#}
 {% block title %}
-    Main
+  Main
 {% endblock %}
 
 {# css 파일 넣는 곳#}
 {% block css %}
-    <link rel="stylesheet" href="{% static '/css/main.css' %}">
+  <link rel="stylesheet" href="{% static '/css/main.css' %}">
 {% endblock %}
 
 {#자바스크립트 파일 넣는 곳#}
-{% block js %}
-
-{% endblock %}
+{% block js %}{% endblock %}
 
 {#메인 컨텐츠 들어가는 곳#}
 {% block content %}
 
+  내지역:
+  {{user.location}}
+  <!-- 서점: {{ stores }} 책: {{ books }} -->
 
-내지역: {{user.location}}
-<!-- 서점: {{ stores }}
-책: {{ books }} -->
-
-<!-- 인기책방 -->
-<div class="category_menu">
-    <img src="/static/img/main_menu(best).png">
-</div>
-<div class="store_wrap">
+<div class="w-full flex flex-col justify-center items-center">
+  <div>
+    인기책방
+  </div>
+  <div class="store_wrap">
     {% for store in stores %}
-        <div class="store_img">
-            {% if request.user.pk == store.user_id%}
-                <img src="{{store.store_img}}" onclick="location.href = '{% url 'mystore' store.user_id %}'">
-            {% else %}
-                <img src="{{store.store_img}}" onclick="location.href = '{% url 'store' store.pk %}'">
-            {% endif %}
-                <p>{{store.store_name}}</p>
-        </div>
+      <div class="store_img">
+        {% if request.user.pk == store.user_id%}
+          <img src="{{store.store_img}}" onclick="location.href = '{% url 'mystore' store.user_id %}'">
+        {% else %}
+          <img src="{{store.store_img}}" onclick="location.href = '{% url 'store' store.pk %}'">
+        {% endif %}
+        <p>{{store.store_name}}</p>
+      </div>
     {% endfor %}
-</div>
-
-
-<!-- 내지역책방 -->
-<div class="category_menu">
-    <img src="/static/img/main_menu(local).png">
-</div>
-<div class="store_wrap">
+  </div>
+  <div class="category_menu">
+    내지역책방
+  </div>
+  <div class="store_wrap">
     {% for store in stores %}
-        <div class="store_img">
-            {% if request.user.pk == store.user_id%}
-                <img src="{{store.store_img}}" onclick="location.href = '{% url 'mystore' store.user_id %}'">
-            {% else %}
-                <img src="{{store.store_img}}" onclick="location.href = '{% url 'store' store.pk %}'">
-            {% endif %}
-                <p>{{store.store_name}}</p>
-        </div>
+      <div class="store_img">
+        {% if request.user.pk == store.user_id%}
+          <img src="{{store.store_img}}" onclick="location.href = '{% url 'mystore' store.user_id %}'">
+        {% else %}
+          <img src="{{store.store_img}}" onclick="location.href = '{% url 'store' store.pk %}'">
+        {% endif %}
+        <p>{{store.store_name}}</p>
+      </div>
     {% endfor %}
-</div>
+  </div>
 
-<!-- 책목록 -->
-<div class="category_menu">
-    <img src="/static/img/main_menu(new).png">
-</div>
-<div class="store_wrap">
+  <div class="category_menu">
+    책 목록
+  </div>
+  <div class="lg:w-4/6 w-full flex flex-col">
     {% for book in books %}
-        <div class="store_img">
-            {% if request.user.pk == store.user_id%}
-                <img src="{{ book.book_img}}" onclick="location.href = '{% url 'detail' book.pk %}'">
-            {% else %}
-                <img src="{{ book.book_img}}" onclick="location.href = '{% url 'detail' book.pk %}'">
-            {% endif %}
-                <p>{{book.book_name}}</p>
-        </div>
+      {% include 'components/book.html' %}
     {% endfor %}
+  </div>
 </div>
 {% endblock %}
-
-
-

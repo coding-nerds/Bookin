@@ -29,13 +29,13 @@
             {% endif %}
         </div>
     </div>
-    <div class="lg:w-4/6 w-full h-96 flex">
+    <div class="lg:w-4/6 w-full flex">
         <div class="w-full flex flex-col p-5">
             <div class="text-3xl">책</div>
             {% if books|length != 0 %}
-            <div class="w-full flex p-5">
+            <div class="w-full flex flex-col p-5">
                 {% for book in books %}
-                {% include 'search/bookBox.html' %}
+                {% include 'components/book.html' %}
                 {% endfor %}
             </div>
             {% else %}
