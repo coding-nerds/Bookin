@@ -11,7 +11,7 @@ def chat_room_list(request):
             my_rooms = my_chat_rooms_load(request.user.id)
             return render(request, "chat/chatRoomList.html", {'rooms': my_rooms})
         else:
-            return redirect('/')
+            return redirect('/sign-in')
 
 
 def chatting_room(request, username):
@@ -21,7 +21,7 @@ def chatting_room(request, username):
             my_room = go_chat_room(request.user.username, username)
             return render(request, "chat/chattingRoom.html", {'room': my_room, 'messages': my_room.messages.all().order_by('created_at')})
         else:
-            return redirect('/')
+            return redirect('/sign-in')
     elif request.method == 'POST':
         if 'user' in request.POST:
             user = request.POST.get('user')
