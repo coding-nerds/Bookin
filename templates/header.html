@@ -1,13 +1,14 @@
-<nav>
-    <div>
-      <a href="/">bookin</a>
-    </div>
-    <div>
-      <form method="get" action="{% url 'search-all' %}">
-        <input  type="text" name="word" class="p-3" placeholder="search...">
-      </form>
-    </div>
-    {% if not user.is_authenticated %}
+<nav class="fixed w-full flex justify-center top-0 right-0 z-10 bg-white border-b-2">
+    <div class="lg:w-4/6 w-full h-20 flex justify-around items-center">
+      <div>
+        <a href="/">bookin</a>
+      </div>
+      <div>
+        <form method="get" action="{% url 'search-all' %}">
+          <input  type="text" name="word" class="p-3" placeholder="search...">
+        </form>
+      </div>
+      {% if not user.is_authenticated %}
       <div >
         <a href="/sign-in">sign in</a>
       </div>
@@ -18,5 +19,6 @@
       <div>
         <a href="/logout">log out</a>
       </div>
-    {% endif %}
-  </nav>
+      {% endif %}
+    </div>
+</nav>
