@@ -49,20 +49,25 @@ function passwordCanChangeBtn(e) {
   profileBtn.removeAttribute("disabled");
   passwordBtn.setAttribute("disabled", "disabled");
 
-  Eggy({
-    title: "비밀번호를 변경하면 로그아웃됩니다",
-    message: "비밀번호를 꼭! 기억해주세요",
-    type: "warning",
-    position: "bottom-right",
-  });
+  document.getElementById("pwdMessage").classList.remove("invisible");
 }
 
-function checkInvalidPassword() {
-  Eggy({
-    title: "비밀번호 형식을 맞춰주세요.",
-    message:
-      "비밀번호는 대﹒소문자 포함, 특수문자 포함, 숫자포함 8자이상 입니다.",
-    type: "warning",
-    position: "bottom-right",
-  });
+function checkInvalidPassword(e) {
+  const checkPwd =
+    /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}/.test(
+      e.value
+    );
+  if (!checkPwd) {
+    document
+      .getElementById("pwdValidCheckMesaage")
+      .classList.remove("invisible");
+    document
+      .getElementById("password")
+      .classList.replace("focus:border-indigo-500", "focus:border-red-500");
+  } else {
+    document.getElementById("pwdValidCheckMesaage").classList.add("invisible");
+    document
+      .getElementById("password")
+      .classList.replace("focus:border-red-500", "focus:border-indigo-500");
+  }
 }
