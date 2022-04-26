@@ -15,13 +15,13 @@
 
 {% block content %}
 <div class="w-full flex flex-col justify-center items-center">
-    <div class="lg:w-4/6 w-full h-96 flex border-b-2">
+    <div class="lg:w-4/6 w-full flex my-5 justify-center items-center">
         <div class="w-full flex flex-col p-5">
             <div class="text-3xl">스토어</div>
             {% if bookstores|length != 0 %}
-            <div class="w-full flex p-5 justify-center sm:justify-start">
-            {% for bookstore in bookstores %}
-            {% include 'search/bookStoreBox.html' %}
+            <div class="w-full flex flex-col p-5">
+            {% for store in bookstores %}
+            {% include 'components/bookStore.html' %}
             {% endfor %}
             </div>
             {% else %}

@@ -1,0 +1,6 @@
+<a href="{% url 'store' store.id %}" class="w-full flex items-center border-b mx-3">
+    <img class="w-36 py-3 mr-5 object-center object-cover cursor-pointer" src="{{ store.store_img }}" alt="">
+    <div class="w-full h-full flex flex-col py-3">
+        <div class="font-bold">{{ store.store_name }}</div>
+    </div>
+</a>

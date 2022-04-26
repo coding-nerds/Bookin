@@ -1,5 +1,5 @@
-<a href="{% url 'detail' book.pk %}" class="w-full h-5/6 flex items-center border-b mx-3 cursor-pointer">
-  <img class="w-32 py-3 mr-5" src="{{ book.book_img }}" alt="">
+<a href="{% url 'detail' book.pk %}" class="w-full h-5/6 flex items-center border-b mx-3">
+  <img class="w-32 py-3 mr-5 object-center object-cover cursor-pointer" src="{{ book.book_img }}" alt="">
   <div class="w-full h-full flex flex-col py-3">
     <div>{{ book.book_name }}</div>
     <div class="font-bold">{{ book.price|floatformat:"g" }}원</div>
