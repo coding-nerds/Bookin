@@ -97,13 +97,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="w-full h-[80vh] mt-20 flex justify-center overflow-y-hidden">
+<div class="w-full h-[80vh] mt-7 flex justify-center overflow-y-hidden">
     <div class="container h-5/6">
         <div id="messageBox" class="overflow-y-rev overflow-x-hidden h-full w-full">
             {% if room.messages.count == 0 %}
                 메세지가 없습니다
             {% else %}
-            {% for message in room.messages %}
+            {% for message in messages %}
             {% if message.user.username == user.username %}
             <div class="mb-6 flex justify-end self-end text-right">
                 <span class="flex items-end font-light text-sm">{{message.created_at|time:"A h:i"}}</span>
