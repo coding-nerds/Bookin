@@ -79,7 +79,7 @@ def my_profile_page(request):
         if user:
             return render(request, 'users/profile.html', {'rented_books': rented_books})
         else:
-            return redirect("/")
+            return redirect("/sign-in")
     elif request.method == 'POST':
         message = ''
         username = request.POST.get('username', None)
